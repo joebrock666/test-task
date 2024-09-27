@@ -1,5 +1,8 @@
-# Vue 3 + Vite
+# Test Task (Vue 3 + Tailwind CSS)
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Приложение основано на данном макете: https://www.figma.com/design/n4z76DB3ypIguvR5dduPce/RateIt-Website-Design-%7C-UI-%26-UX-(Community)?m=auto&t=IJ7YKNuq51b6CWPA-6
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+- Реализовано 3 блока из макета
+- Отображены посты с использованием [JSONPlaceholder](https://jsonplaceholder.typicode.com), добавлена пагинация и опция добавления постов
+- Добавлена возможность регистрации и логина с использованием API [ReqRes](https://reqres.in)
+- Адаптивность с использованием Tailwind CSS
