@@ -9,4 +9,4 @@
 -   Регистрация возможна только со значениями из reqres. Рабочий эмейл для теста: eve.holt@reqres.in
 - Адаптивность с использованием Tailwind CSS
 - Store реализован с использованием Pinia
-- 
+- Сайт можно посмотреть на Github Pages: https://joebrock666.github.io/test-task/
