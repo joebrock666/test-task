@@ -10,3 +10,4 @@
 - Адаптивность с использованием Tailwind CSS
 - Store реализован с использованием Pinia
 - Сайт можно посмотреть на Github Pages: https://joebrock666.github.io/test-task/
+- В Postman создана документация по API
