@@ -1,66 +1,54 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
+import axios from "axios";
 
 export const useAuthStore = defineStore('auth', () => {
-    const signupSuccess = ref(false)
     const isLoggedIn = ref(!!localStorage.getItem('authToken'))
-    const loginSuccess = ref(false)
 
-    const login = async (email, password) => {
-        try {
-            const response = await fetch('https://reqres.in/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password }),
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                localStorage.setItem('authToken', data.token);
-                isLoggedIn.value = true;
-                loginSuccess.value = true;
-            } else {
-                loginSuccess.value = false;
-            }
-        } catch (error) {
-            console.error('Login error:', error);
-            loginSuccess.value = false;
+    const login = (email, password) => {
+        const storedEmail = localStorage.getItem('userEmail');
+        const storedPassword = localStorage.getItem('userPassword');
+        if (storedEmail === email && storedPassword === password) {
+            axios.post('https://reqres.in/api/login', { email, password })
+                .then(response => {
+                    if (response.data.token) {
+                        console.log('Login successful.');
+                        localStorage.setItem('authToken', response.data.token);
+                        isLoggedIn.value = true;
+                    } else {
+                        console.error('Login failed:', response.data.token);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Login error:', error);
+                    loginSuccess.value = false;
+                });
         }
     };
 
     const logout = () => {
         localStorage.removeItem('authToken');
         isLoggedIn.value = false;
-        signupSuccess.value = false; // Reset signup success on logout
     };
 
-    const signup = async (email, password) => {
-        try {
-            const response = await fetch('https://reqres.in/api/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password }),
+    const signup = (email, password) => {
+        axios.post('https://reqres.in/api/register', {email, password})
+            .then(response => {
+                console.log(response.data.token)
+                if (response.data.token) {
+                    localStorage.setItem('userEmail', email);
+                    localStorage.setItem('userPassword', password);
+                    localStorage.setItem('authToken', response.data.token);
+                    isLoggedIn.value = true;
+                    console.log('Signup successful and email saved.');
+                } else {
+                    console.error('Signup failed:', response.data);
+                }
+            })
+            .catch((error) => {
+                console.error('Signup error:', error);
             });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                localStorage.setItem('authToken', data.token);
-                isLoggedIn.value = true;
-                signupSuccess.value = true;
-            } else {
-                signupSuccess.value = false;
-            }
-        } catch (error) {
-            console.error('Signup error:', error);
-            signupSuccess.value = false;
-        }
     };
 
-    return { isLoggedIn, signupSuccess, login, logout, signup };
+    return { isLoggedIn, login, logout, signup };
 });
