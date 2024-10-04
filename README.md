@@ -12,3 +12,21 @@
 - Сайт можно посмотреть на Github Pages: https://joebrock666.github.io/test-task/
 - В Postman создана документация по API
 - Есть один закрытый pull request с описанием предложенных изменений
+
+## Project Setup
+
+```sh
+npm install
+```
+
+### Compile and Hot-Reload for Development
+
+```sh
+npm run dev
+```
+
+### Compile and Minify for Production
+
+```sh
+npm run build
+```
